@@ -17,7 +17,8 @@
     "productName": "WaraEditor",
     "extraFiles": [
       "tools",
-      "python"
+      "python",
+      "undefined"
     ]
   },
   "dependencies": {
