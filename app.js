@@ -16,8 +16,13 @@ let incr;
 let selectedPost = [];
 let selectedTopic = 0;
 let alr = false;
+let appPath;
 
 // on open file
+ipcRenderer.on('get-app-path', (event, path) => {
+    appPath = path;
+});
+
 ipcRenderer.on('open-file', (event, file) => {
     loadFile(file);
 });
@@ -59,14 +64,14 @@ function saveFile(file) {
 function toPNG(data, callback) {
     let id = randomNum(1111111, 9999999);
 
-    fs.writeFile(__dirname + '/python/'+id+'.txt', data, function(err) {
+    fs.writeFile(appPath + '/python/'+id+'.txt', data, function(err) {
         if (err) throw err;
 
-        PythonShell.run(__dirname + '/python/mv2tga.py', {args:[__dirname + '/python/'+id+'.txt']}, function (err, results) {
+        PythonShell.run(appPath + '/python/mv2tga.py', {args:[appPath + '/python/'+id+'.txt']}, function (err, results) {
             if (err) throw err;
 
             // read new tga
-            var tga = new TGA(fs.readFileSync(__dirname + '/python/'+id+'.tga'));
+            var tga = new TGA(fs.readFileSync(appPath + '/python/'+id+'.tga'));
             var png = new PNG({
                 width: tga.width,
                 height: tga.height
@@ -80,9 +85,9 @@ function toPNG(data, callback) {
             png.on('end', function () {
                 var result = Buffer.concat(chunks);
                 // delete all files
-                fs.unlinkSync(__dirname + '/python/'+id+'.tga');
+                fs.unlinkSync(appPath + '/python/'+id+'.tga');
                 setTimeout(() => {
-                    fs.unlinkSync(__dirname + '/python/'+id+'.txt');
+                    fs.unlinkSync(appPath + '/python/'+id+'.txt');
                 }, 200);
                 callback(result.toString('base64'));
             });
@@ -270,12 +275,12 @@ function editIcon(topic) {
 ipcRenderer.on('painting-updated', (event, resp) => {
     filePath = resp.file;
     // open file
-    fs.copyFile(filePath, __dirname + '/python/input.tga', (err) => {
-        PythonShell.run(__dirname + '/python/runme.py', null, function (err, results) {
+    fs.copyFile(filePath, appPath + '/python/input.tga', (err) => {
+        PythonShell.run(appPath + '/python/runme.py', null, function (err, results) {
             if(err) throw err;
             // results is an array consisting of messages collected during execution
             console.log('results: %j', results);
-            fs.readFile(__dirname + '/python/input2.txt', (err, data) => {
+            fs.readFile(appPath + '/python/input2.txt', (err, data) => {
                 js.result.topics.topic[resp.topic].people.person[resp.person].posts.post.painting.content = data.toString();
                 toPNG(data, (image) => {
                     let pid = js.result.topics.topic[resp.topic].people.person[resp.person].posts.post.pid;
@@ -291,12 +296,12 @@ ipcRenderer.on('painting-updated', (event, resp) => {
 ipcRenderer.on('icon-updated', (event, resp) => {
     filePath = resp.file;
     // open file
-    fs.copyFile(filePath, __dirname + '/python/input.tga', (err) => {
-        PythonShell.run(__dirname + '/python/runme.py', null, function (err, results) {
+    fs.copyFile(filePath, appPath + '/python/input.tga', (err) => {
+        PythonShell.run(appPath + '/python/runme.py', null, function (err, results) {
             if(err) throw err;
             // results is an array consisting of messages collected during execution
             console.log('results: %j', results);
-            fs.readFile(__dirname + '/python/input2.txt', (err, data) => {
+            fs.readFile(appPath + '/python/input2.txt', (err, data) => {
                 js.result.topics.topic[resp.topic].icon = data.toString();
                 toPNG(data, (image) => {
                     updateStatus("loading icon for " + js.result.topics.topic[resp.topic].name);
