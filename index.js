@@ -6,7 +6,8 @@ try {
 	require('electron-reloader')(module, {
         ignore: [
             'tools',
-            'python'
+            'python',
+            'undefined'
         ]
     });
 } catch {}
@@ -28,7 +29,7 @@ function createWindow () {
 
 app.whenReady().then(function() {
     createWindow();
-    win.webContents.send('get-app-path', app.getAppPath());
+    win.webContents.send('get-app-path', path.resolve('.'));
 })
 
 const template = [

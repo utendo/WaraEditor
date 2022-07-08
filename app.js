@@ -20,7 +20,7 @@ let appPath;
 
 // on open file
 ipcRenderer.on('get-app-path', (event, path) => {
-    appPath = path;
+    appPath = path.replace("\\undefined", "");
 });
 
 ipcRenderer.on('open-file', (event, file) => {
@@ -244,8 +244,17 @@ function selectPost(topic, person) {
 
 function updateBody(topic, person) {
     let body = document.getElementById(`postbody_${topic}_${person}`).innerHTML;
-    let post = js.result.topics.topic[topic].people.person[person].posts.post;
-    post.body = body;
+    let bodyLength = body.length;
+
+    if(bodyLength <= 100) {
+        let post = js.result.topics.topic[topic].people.person[person].posts.post;
+        post.body = body.substring(0, 100);
+    }
+    else {
+        updateStatus("can't have more than 100 characters");
+        document.getElementById(`postbody_${topic}_${person}`).innerHTML = body.substring(0, 100);
+        document.getElementById(`postbody_${topic}_${person}`).selectionStart = document.getElementById(`postbody_${topic}_${person}`).selectionEnd = document.getElementById(`postbody_${topic}_${person}`).innerHTML.length;
+    }
 };
 
 function updateScreenName(topic, person) {
