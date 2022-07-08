@@ -1,0 +1,11 @@
+{
+    "name": "waraimage",
+    "version": "1.0.0",
+    "description": "Decode WaraWara icons and drawings.",
+    "main": "./index.js",
+    "dependencies": {
+        "pngjs": "^6.0.0",
+        "python-shell": "^3.0.1",
+        "tga": "^1.0.7"
+    }
+}

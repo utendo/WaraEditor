@@ -1,0 +1,213 @@
+@font-face{
+    font-family: 'Nintendo UI';
+    src: url('./fonts/nintendo.woff');
+}
+
+* {
+    margin: 0;
+    font-family: 'Nintendo UI', sans-serif !important;
+    user-select: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+
+    padding: 0;
+    margin: 0;
+
+    background: url('./assets/pattern.png'), linear-gradient(180deg, #E0F9F2 0%, #E2EDE1 46.35%, #D0DDDB 100%);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow-x: hidden;
+}
+
+.list {
+    margin: 20px;
+    width: 398px;
+}
+
+.topic {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.25), inset 0px 4px 4px #FFFFFF, inset 0px -4px 4px rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    margin-top: 30px;
+    position: relative;
+    margin-bottom: 50px;
+    perspective: 100px;
+}
+
+.topic:hover {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.topicIcon {
+    width: 63px;
+    height: 63px;
+    box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.25), inset 0px 4px 4px #FFFFFF, inset 0px -4px 4px rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    transform: translateY(-36px);
+    margin-left: 17px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.topicIcon:hover {
+    transform: translateY(-36px) scale(1.1);
+    background: #ffffff55;
+    box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.5), inset 0px 4px 4px #FFFFFF, inset 0px -4px 4px rgba(255, 255, 255, 0.5);
+}
+
+.topicIcon img.loaded {
+    animation: topicIcon 0.3s forwards;
+}
+
+@keyframes topicIcon {
+    0% {
+        transform: scale(1.1);
+        filter: brightness(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.topicIcon img {
+    mask-image: url('./assets/icon_mask.png');
+    border-radius: 15px;
+    width: 55px;
+    height: 55px;
+    z-index: 99999;
+    position: absolute;
+}
+
+.topicName {
+    background: #424345;
+    border-radius: 5px 5px 0px 0px;
+    padding: 7px 15px;
+    padding-left: 40px;
+    color: #fff;
+    width: fit-content;
+    position: absolute;
+    top: -32px;
+    left: 50px;
+    z-index: -9;
+}
+
+.recommended {
+    background: linear-gradient(0deg, rgba(244, 169, 1, 0.25), rgba(244, 169, 1, 0.25)), rgba(255, 255, 255, 0.25);
+}
+
+.recommended:hover {
+    background: linear-gradient(0deg, rgba(244, 169, 1, 0.50), rgba(244, 169, 1, 0.50)), rgba(255, 255, 255, 0.0);
+}
+
+.posts {
+    margin-top: -30px;
+    margin-left: 17px;
+    margin-right: 17px;
+    padding-bottom: 20px;
+    perspective: 100px;
+}
+
+.post {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: inset 0px 0px 22px #FFFFFF, inset 0px 0px 22px #FFFFFF, inset 0px 0px 22px #FFFFFF;
+    backdrop-filter: blur(6.81818px);
+    /* Note: backdrop-filter has minimal browser support */
+
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+
+    padding: 9px 11px;
+    margin-top: 20px;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
+
+    transition: filter 0.2s, transform 0.05s, background 0.1s;
+    transform: scale(1.005);
+}
+
+.post.selected {
+    outline: 2px solid #0099ff;
+}
+
+.post:hover {
+    background: rgba(255, 255, 255, 0.55);
+    filter: drop-shadow(0px 2px 12px rgba(0, 0, 0, 0.25));
+    transform: scale(1.05);
+    z-index: 99999;
+}
+
+.post:active {
+    background: rgba(255, 255, 255, 0.55);
+    filter: drop-shadow(0px 2px 12px rgba(0, 0, 0, 0.25));
+    transform: scale(1.01) rotateX(0deg);
+    z-index: 99999;
+}
+
+.postIcon img {
+    border-radius: 5px;
+    height: 46px;
+    width: 46px;
+}
+
+.postName {
+    position: absolute;
+    top: -14px;
+    background: #424345;
+    border-radius: 300px;
+    padding: 2px 11px 3px;
+    color: #ffffff;
+    text-shadow: 0px 1px 0px #000000;
+}
+
+.postContent {
+    margin-left: 14px;
+    margin-right: 14px;
+    font-size: 16px;
+    text-shadow: 0px 1px 0px #FFFFFF;
+}
+
+.post_painting {
+    margin-left: -10px;
+    border-radius: 300px;
+    width: 277px;
+    border-radius: 10px;
+}
+
+#status {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    max-width: 350px;
+}
+
+#status p {
+    background-color: #22222299;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 13px;
+    border-radius: 7px;
+    line-break: anywhere;
+    margin-bottom: 5px;
+    width: fit-content;
+    max-width: 100%;
+}
+
+p:focus {
+    outline: none;
+}
+
+img:hover {
+    filter: brightness(0.7) contrast(0.7);
+}

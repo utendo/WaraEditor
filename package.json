@@ -1,0 +1,30 @@
+{
+  "name": "waraeditor2",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^19.0.8",
+    "electron-builder": "^23.1.0",
+    "electron-reloader": "^1.2.3"
+  },
+  "build": {
+    "productName": "WaraEditor",
+    "extraFiles": [
+      "tools",
+      "python"
+    ]
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.0.8",
+    "pngjs": "^6.0.0",
+    "python-shell": "^3.0.1",
+    "tga": "^1.0.7",
+    "waraparser": "^1.0.0"
+  }
+}
