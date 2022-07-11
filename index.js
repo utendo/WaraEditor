@@ -106,6 +106,34 @@ const template = [
                     win.webContents.send('duplicate-post')
                 }
             },
+            {
+                label: 'Change Mii hash',
+		enabled: false,
+                click: function() {
+                    // It changes the Mii hash (<mii> in the xml)
+                }
+            },
+            {
+                label: 'Change Yeah! count',
+		enabled: false,
+                click: function() {
+                    // Changes the count of Yeah's (<empathy_count> in the xml)
+                }
+            },
+            {
+                label: 'Change Mii face URL',
+		enabled: false,
+                click: function() {
+                    // Changes the mii face (<mii_face_url> in the xml)
+                }
+            },
+            {
+                label: 'Change Reply count',
+		enabled: false,
+                click: function() {
+                    // Changes the reply's count (<reply_count> in the xml)
+                }
+            },
         ]
     },
     {
@@ -115,6 +143,27 @@ const template = [
                 label: 'Toggle Recommended',
                 click: function() {
                     win.webContents.send('toggle-recommended')
+                }
+            },
+            {
+                label: 'Has Shop page',
+		enabled: false,
+                click: function() {
+                    // tells if it has eshop page (1 for yes and 0 for no) (<has_shop_page> in the xml)
+                }
+            },
+            {
+                label: 'Change Title ID',
+		enabled: false,
+                click: function() {
+                    // ask me on discord cause theres multiple in the xml
+                }
+            },
+            {
+                label: 'Change Community ID',
+		enabled: false,
+                click: function() {
+                    // same, ask me on discord cause theres multiple in the xml
                 }
             },
         ]
